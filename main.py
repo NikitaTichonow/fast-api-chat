@@ -6,7 +6,7 @@ from app.api.router_socket import router as router_socket
 app = FastAPI()
 
 # Подключаем папку со статическими файлами
-app.mount('/static', StaticFiles(directory='app/static'), 'static')
+app.mount("/static", StaticFiles(directory="app/static"), "static")
 
 # Регистрируем маршруты
 app.include_router(router_socket)
