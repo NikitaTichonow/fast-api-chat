@@ -4,10 +4,23 @@ from fastapi.responses import HTMLResponse
 import random
 
 
-templates = Jinja2Templates(directory='app/templates')
+templates = Jinja2Templates(directory="app/templates")
 router = APIRouter()
 
-
+#Эндпоинт для главной страницы
 @router.get("/", response_class=HTMLResponse)
 async def home_page(request: Request):
     return templates.TemplateResponse("home.html", {"request": request})
+
+
+#Эндпоинт для входа в чат
+@router.post("/join_chat", response_class=HTMLResponse)
+async def join_chat(request: Request, username: str = Form(...), room_id: int = Form(...)):
+    # Простая генерация user_id
+    user_id = random.randint(100, 100000)
+    return templates.TemplateResponse("index.html",
+                                      {"request": request,
+                                       "room_id": room_id,
+                                       "username": username,
+                                       "user_id": user_id}
+                                      )
